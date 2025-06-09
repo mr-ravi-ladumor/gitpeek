@@ -1,0 +1,159 @@
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  padding: 12px 16px;
+  margin: 16px;
+  height: 220px;
+  width: 350px;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  color: #343a40;
+}
+
+.repo-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.repo-title-section  {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.details > span, 
+.repo-title-section > span{
+  position: relative;
+  cursor: pointer;
+}
+
+
+
+.hidden{
+  visibility: hidden;
+  opacity: 0;
+  text-align: center;
+  background-color: #080808bc;
+  color: #e7e7e7;
+  border-radius: 3px;
+  padding: 3px 12px;
+  font-size: 0.8rem;
+  position: absolute;
+  top: 100%;
+  left: 20%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+.details > span:hover .hidden, 
+.repo-title-section > span:hover .hidden { 
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.stars{
+  font-size: 0.99rem;
+  color: #6c757d;
+  margin-top: -12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.stars , .watchers ,
+.language, .open-issues,
+.forks
+{
+  display: flex;
+  align-items: center;
+  gap:7px;
+}
+
+
+.description {
+  flex-grow: 1;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.description p {
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+.button-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+/* Bookmark button styles */
+.bookmark-button button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 50%;
+  transition: background 0.18s;
+  font-size: 1.15rem;
+  color: #22b14c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmark-button button:hover,
+.bookmark-button button:focus {
+  background: #e5f7ea;
+  color: #178d36;
+  box-shadow: 0 4px 9px rgba(34,177,76,0.08);
+}
+
+.bookmark-button .bs-bookmark-fill {
+  color: #22b14c;
+  /* color: #e1ede4; */
+}
+
+.bookmark-button .bs-bookmark {
+  color: #aaa;
+}
+
+.github-button {
+  width: fit-content;
+  padding: 7px 12px;
+  background-color: #22b14c;
+  /* background-color: #24292e; */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.github-button:hover {
+  background-color: #444d56;
+  text-decoration: none;
+}
+

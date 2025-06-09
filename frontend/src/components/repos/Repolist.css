@@ -1,0 +1,18 @@
+
+.repolist-container {
+  padding-top:5px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px; /* space between cards */
+  justify-items: center;
+  align-items: start;
+}
+
+
+.repolist-title{
+  margin-left: 18px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: left;
+}

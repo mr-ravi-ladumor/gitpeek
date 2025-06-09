@@ -1,0 +1,62 @@
+
+.home-header {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.home-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.home-header p {
+  color: #444;
+  margin-bottom: 24px;
+}
+
+.explore-btn {
+  background: #22b14c;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 40px;
+  transition: background 0.2s;
+}
+
+.explore-btn:hover {
+  background: #17913a;
+}
+
+.pagination-controls{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+  margin-bottom: 50px; 
+
+}
+
+.pagination-controls button {
+  background: #22b14c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size:18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination-controls button:hover {
+  background: #17913a;
+}
+
+
+
+
+
