@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import Navbar from './components/layout/Navbar';
-import BookmarkList from './components/repos/BookmarkList';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
-import Home from './components/Home';
+
+// import Components
+import BookmarkList from './components/Repo/BookmarkList.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
+import Home from './components/Home/Home.jsx';
 
 function App() {
   // Filter and pagination state

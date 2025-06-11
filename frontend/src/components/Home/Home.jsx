@@ -1,6 +1,8 @@
-import Repolist from './repos/Repolist';
-import SeachFilter from './filter/SeachFilter';
+import React from 'react';
+
 import './Home.css';
+import SeachFilter from '../SearchFilter/SearchFilter';
+import Repolist from '../Repo/RepoList/RepoList.jsx';
 
 function Home({
   repos,

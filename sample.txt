@@ -1,0 +1,33 @@
+I have a GitHub repository explorer app written in Node.js that fetches public repositories using the GitHub API, filters them, and stores selected info in MongoDB. The project is intended to showcase my skills and will be used for internship and resume purposes.
+
+Here’s what I want this script to achieve clearly and properly:
+
+1. Only **real open-source repositories** should be stored.
+2. It must check that:
+   - The repo is **public** (`private: false`)
+   - The repo is **not archived or disabled**
+   - The repo **has issues enabled**
+   - The repo is **not a fork** (`fork: false`)
+   - The repo has a **valid open-source license**
+     - The license should be from a whitelist (like MIT, BSD-3-Clause, Apache-2.0, etc.)
+     - Use `license.key` or `license.spdx_id` field from GitHub API
+     - If license is `null` or `NOASSERTION`, skip the repo
+3. Update the schema (Mongoose model) to store license info:
+   - license.key
+   - license.name
+   - license.spdx_id
+   - license.url
+4. While filtering, skip repos that don’t have a valid license.
+5. Include the license info in the MongoDB insert data.
+6. Optimize filtering logic in `utils.js` so only correct repos get stored.
+7. Add the ability to update `updatedAt` or `pushedAt` to filter out old or inactive repos later.
+8. Optionally, enhance the scoring system by:
+   - Checking if issues have `good first issue` or `help wanted` labels
+   - Adding score/flags for popularity or activity
+9. Make the whole code clean and readable. Add comments where needed.
+
+Important: I’m not building a full-stack app yet, just focusing on backend data filtering and storing for now.
+
+Use the provided fetch script and repo model as base. Don’t break anything, just enhance it logically and practically.
+
+Please write code that is understandable for GitHub Copilot, GPT-4.1-based suggestions, and beginner friendly.
