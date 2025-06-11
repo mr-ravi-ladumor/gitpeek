@@ -1,8 +1,8 @@
 import React from 'react';
 
 import './Home.css';
-import SeachFilter from '../SearchFilter/SearchFilter';
-import Repolist from '../Repo/RepoList/RepoList.jsx';
+import SeachFilter from '../SearchFilter/SearchFilter.jsx';
+import Repolist from '../Repo/RepoList.jsx';
 
 function Home({
   repos,
@@ -24,8 +24,8 @@ function Home({
     <div className='home'>
       <div className="home-header">
         <h1>Welcome to GitPeek</h1>
-        <p>Discover amazing open-source GitHub projects and contribute to the community.</p>
-        <button className="explore-btn">Explore Projects</button>
+        <p>Discover and bookmark amazing open-source GitHub projects. Join the community and start contributing today!</p>
+        {/* <button className="explore-btn">Explore Projects</button> */}
       </div>
       <SeachFilter
         selectedStar={selectedStar}
@@ -44,7 +44,7 @@ function Home({
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
         >
-          Prev
+          Previ
         </button>
         <span>Page {currentPage} of {totalPages}</span>
         <button className="next-button"

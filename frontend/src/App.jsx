@@ -48,6 +48,8 @@ function App() {
   useEffect(() => {
     if (location.pathname !== '/') return;
 
+    if(repos.length > 0) return;
+
     const params = new URLSearchParams();
 
     if (selectedStar !== 'Any') params.append('stars', selectedStar);
@@ -72,7 +74,7 @@ function App() {
         console.log('Error fetching repos:', error.message);
       }
     })();
-  }, [ selectedStar, selectedLanguages, selectedTopics, currentPage, selectedSort]);
+  }, [location.pathname, selectedStar, selectedLanguages, selectedTopics, currentPage, selectedSort]);
 
   return (
     <div className="App">

@@ -1,8 +1,14 @@
+.filter-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .filter-section {
-  max-width: 1000px;
-  margin: 40px auto 30px auto;
-  padding: 0 16px 40px 16px;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 0px 20px 55px;
+  display: block;
 }
 
 .filter-title {
@@ -13,6 +19,8 @@
 
 .filter-fields {
   display: flex;
+  flex-direction: row;
+  align-items: center;
   gap: 20px;
 }
 
@@ -20,7 +28,7 @@
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  min-width: 120px;
+  min-width: 140px;
 }
 
 /* Dropdown container */
@@ -29,7 +37,7 @@
   display: inline-block;
   margin-right: 16px;
   margin-bottom: 10px;
-  min-width: 180px;
+  min-width: 250px;
   font-family: inherit;
 }
 

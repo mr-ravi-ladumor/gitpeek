@@ -6,11 +6,11 @@ function Navbar() {
   return (
     <nav className="navbar">
       <ul className="left-nav">
-        <li><Link to="/" >GitPeek</Link></li>
+        <li><Link to="" >GitPeek</Link></li>
       </ul>
 
       <ul className="middle-nav">
-        <li><Link to="/discover">Discover</Link></li>
+        <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/contact">Contact</Link></li>
       </ul>

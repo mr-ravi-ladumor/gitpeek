@@ -1,0 +1,31 @@
+
+.bookmark-list{
+  margin-top: 60px;
+  padding: 24px 15px;
+} 
+
+.bookmark-title{
+  margin-left: 18px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+.bookmark-cards{
+  padding-top:5px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px; /* space between cards */
+  justify-items: center;
+  align-items: start;
+}
+
+.message{
+  font-size: 1.2rem;
+  color: #555;
+  text-align: left;
+  margin-top: 50px;
+  margin-left: 18px;
+  width: 100%;
+}
