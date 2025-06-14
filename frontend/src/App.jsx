@@ -46,9 +46,8 @@ function App() {
 
   // Fetch repos when filters or page changes
   useEffect(() => {
-    if (location.pathname !== '/') return;
 
-    if(repos.length > 0) return;
+    if(!location.pathname.startsWith('/')) return;
 
     const params = new URLSearchParams();
 
