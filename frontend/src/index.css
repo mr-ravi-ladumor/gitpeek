@@ -1,28 +1,21 @@
-/* Reset some default browser styles */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Set a comfortable base font and background */
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background-color: #f7f9fb;
   color: #222;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* Simple container class */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
 
-/* Basic button style */
+
+
 button {
-  background-color: #2563eb;
   color: #fff;
   border: none;
   padding: 0.6em 1.2em;

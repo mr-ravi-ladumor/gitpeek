@@ -44,7 +44,7 @@ function Home({
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
         >
-          Previ
+          Prev
         </button>
         <span>Page {currentPage} of {totalPages}</span>
         <button className="next-button"

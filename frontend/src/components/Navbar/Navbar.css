@@ -7,7 +7,7 @@
   /* background-color: #1f1f1f; */
   background-color: #22b14c;
   color: white;
-  width: 100%;
+  width: 100vw;
   position: fixed;
   top: 0;
   z-index: 1000;

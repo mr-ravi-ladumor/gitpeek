@@ -101,8 +101,8 @@ function App() {
           }
         />
         <Route path="/about" element={<div style={{ padding: 20 }}><h2>About</h2><p>This is a simple GitHub repo explorer.</p></div>} />
-        <Route path="/contact" element={<div style={{ padding: 20 }}><h2>Contact</h2><p>Contact us at example@email.com</p></div>} />
-        <Route path="/discover" element={<div style={{ padding: 20 }}><h2>Discover</h2><p>Discover more features soon!</p></div>} />
+        {/* <Route path="/contact" element={<div style={{ padding: 20 }}><h2>Contact</h2><p>Contact us at example@email.com</p></div>} /> */}
+        {/* <Route path="/discover" element={<div style={{ padding: 20 }}><h2>Discover</h2><p>Discover more features soon!</p></div>} /> */}
         <Route
           path="/bookmark"
           element={

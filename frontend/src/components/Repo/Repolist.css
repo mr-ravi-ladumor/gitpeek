@@ -1,18 +1,29 @@
+.container {
+  max-width: 80vw;
+  margin: auto;
+  /* padding: 2rem; */
+  background: #f3d810;
+}
 
 .repolist-container {
-  padding-top:5px;
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px; /* space between cards */
-  justify-items: center;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
 }
 
 
 .repolist-title{
-  margin-left: 18px;
+  margin-left: 1.4rem;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: left;
+}
+
+@media (max-width: 768px) {
+  .repolist-container {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
 }
