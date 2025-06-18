@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Repocard.css';
 
 import { FiEye } from "react-icons/fi";            // for the eye icon
@@ -10,11 +10,15 @@ import { GoRepoForked } from "react-icons/go";     // for fork icon
 import { BsBookmark } from "react-icons/bs";       // for bookmark icon
 import { BsBookmarkFill } from "react-icons/bs";   // for filled bookmark icon
 
-import { formatCount } from '../../utils/helpers.js'; 
+import { formatCount, onToggleBookmark} from '../../utils/helpers.js'; 
 
-function Repocard({ repo, bookmarks, onToggleBookmark }) {
-  const bookmarked = bookmarks?.includes(repo.id);
-  const [isBookmarked, setIsBookmarked] = React.useState(bookmarked);
+function Repocard({ repo}) {
+
+  // const [isBookmarked, setIsBookmarked] = useState([bookmarks.includes(repo.id)]);
+  const onClickBookmark = () => {
+    const bookmarkedReposIDList = onToggleBookmark(repo.id);
+    // setIsBookmarked(!isBookmarked);
+  }
   
   return (
     <div className="repo-card">
@@ -60,8 +64,10 @@ function Repocard({ repo, bookmarks, onToggleBookmark }) {
 
       <div className='button-section'>
           <div className="bookmark-button">
-            <button onClick={() => {onToggleBookmark(repo.id); setIsBookmarked(!isBookmarked);}}>
-                {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
+            <button onClick={
+                () => {onClickBookmark}}>
+                  <BsBookmark/>
+                {/* {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />} */}
             </button>
           </div>
 

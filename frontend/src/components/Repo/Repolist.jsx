@@ -3,24 +3,24 @@ import Repocard from './Repocard'
 import './Repolist.css'
 
 
-function Repolist({reposlist,bookmarks, onToggleBookmark}) {
+function Repolist({repos}) {
+
+  console.log(repos);
 
   const renderedRepos = useMemo(() => (
-  reposlist.map(repo => (
+  repos.map(repo => (
     <div key={repo.id} className="repo-card-container">
       <Repocard repo={repo}
-        bookmarks={bookmarks}
-        onToggleBookmark={onToggleBookmark}
        />
     </div>
   ))
-), [reposlist]);
+), [repos]);
 
 return (
   <div className="container">
     <h2 className="repolist-title">Repositories</h2>  
     <div className="repolist-container">
-      {reposlist.length === 0 ? (
+      {repos.length === 0 ? (
         <p>No repositories found. Please Try to Refresh Page </p>
       ) : renderedRepos}
     </div>

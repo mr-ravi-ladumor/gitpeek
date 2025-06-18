@@ -1,25 +1,60 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import './Home.css';
 import SeachFilter from '../SearchFilter/SearchFilter.jsx';
 import Repolist from '../Repo/RepoList.jsx';
 
-function Home({
-  repos,
-  currentPage,
-  setCurrentPage,
-  selectedStar,
-  setSelectedStar,
-  selectedLanguages,
-  setSelectedLanguages,
-  selectedTopics,
-  setSelectedTopics,
-  selectedSort,
-  setSelectedSort,
-  totalPages,
-  bookmarks,
-  onToggleBookmark
-}) {
+function Home() {
+  // State to hold fetched repositories
+  const [repos, setRepos] = useState([]);
+  console.log(repos)
+
+  // Filter states
+  const [selectedStar, setSelectedStar] = useState('Any');
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+  const [selectedTopics, setSelectedTopics] = useState([]);
+  const [selectedSort, setSelectedSort] = useState(
+    {
+        value: '',
+        order: ''
+    }
+);
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+
+  // Fetch repos when filters or page changes
+  useEffect(() => {
+
+    const params = new URLSearchParams();
+
+    if (selectedStar !== 'Any') params.append('stars', selectedStar);
+    if (selectedLanguages.length > 0) params.append('languages', selectedLanguages.join(','));
+    if (selectedTopics.length > 0) params.append('topics', selectedTopics.join(','));
+    params.append('page', currentPage);
+    params.append('per_page', 30);
+    if (selectedSort.value && selectedSort.order) {
+      params.append('sort', selectedSort.value);
+      params.append('order', selectedSort.order);
+    }
+
+    (async () => {
+      try {
+        // Fetch repos from the backend API
+        const response = await fetch(`http://localhost:5000/api/github/repos?${params}`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        setRepos(data.repos);
+        setTotalPages(Math.ceil(data.total_count / 30));
+      } catch (error) {
+        console.log('Error fetching repos:', error.message);
+      }
+    })();
+  }, [ selectedStar, selectedLanguages, selectedTopics, currentPage, selectedSort]);
+
+
   return (
     <div className='home'>
       <div className="home-header">
@@ -38,7 +73,7 @@ function Home({
         setSelectedSort={setSelectedSort}
         setCurrentPage={setCurrentPage}
       />
-      <Repolist reposlist={repos} bookmarks={bookmarks} onToggleBookmark={onToggleBookmark} />
+      <Repolist repos={repos}  />
       <div className="pagination-controls">
         <button className="prev-button"
           disabled={currentPage === 1}
