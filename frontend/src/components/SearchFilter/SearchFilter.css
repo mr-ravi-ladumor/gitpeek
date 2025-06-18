@@ -1,6 +1,6 @@
 .filter-container {
   /* max-width: 80vw; */
-  background-color: #00e5ff;
+  /* background-color: #00e5ff; */
   margin: auto;
   display: flex;
   align-items: center;
@@ -162,7 +162,7 @@
 @media (max-width: 768px) {
   .filter-container {
     max-width: 80vw;
-    background: #000;
+    /* background: #000; */
     flex-direction: column;
   }
   .filter-section {

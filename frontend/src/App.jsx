@@ -7,6 +7,9 @@ import BookmarkList from './components/Repo/BookmarkList.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Home from './components/Home/Home.jsx';
 
+// import utility functions
+import { onToggleBookmark } from './utils/helpers.js';
+
 function App() {
   // Filter and pagination state
   const [selectedStar, setSelectedStar] = useState('Any');
@@ -28,26 +31,13 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
-  function onToggleBookmark(repoId) {
-    setBookmarks(prev => {
-      let updated;
-      if (prev.includes(repoId)) {
-        updated = prev.filter(id => id !== repoId);
-      } else {
-        updated = [...prev, repoId];
-      }
-      localStorage.setItem("bookmarks", JSON.stringify(updated));
-      return updated;
-    });
-  }
+  
 
   // Use location to determine if we are on the home page
   const location = useLocation();
 
   // Fetch repos when filters or page changes
   useEffect(() => {
-
-    if(!location.pathname.startsWith('/')) return;
 
     const params = new URLSearchParams();
 
@@ -73,7 +63,7 @@ function App() {
         console.log('Error fetching repos:', error.message);
       }
     })();
-  }, [location.pathname, selectedStar, selectedLanguages, selectedTopics, currentPage, selectedSort]);
+  }, [ selectedStar, selectedLanguages, selectedTopics, currentPage, selectedSort]);
 
   return (
     <div className="App">
@@ -101,8 +91,6 @@ function App() {
           }
         />
         <Route path="/about" element={<div style={{ padding: 20 }}><h2>About</h2><p>This is a simple GitHub repo explorer.</p></div>} />
-        {/* <Route path="/contact" element={<div style={{ padding: 20 }}><h2>Contact</h2><p>Contact us at example@email.com</p></div>} /> */}
-        {/* <Route path="/discover" element={<div style={{ padding: 20 }}><h2>Discover</h2><p>Discover more features soon!</p></div>} /> */}
         <Route
           path="/bookmark"
           element={
