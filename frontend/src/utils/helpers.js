@@ -18,6 +18,11 @@ export function onToggleBookmark(repoId) {
   return bookmarkedReposIDList;
 }
 
+export function getBookmarks() {
+  const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+  return bookmarks;
+}
+
 
 export async function getBookmarkedRepos(){
   const bookmarkedReposId = JSON.parse(localStorage.getItem("bookmarks")) || [];

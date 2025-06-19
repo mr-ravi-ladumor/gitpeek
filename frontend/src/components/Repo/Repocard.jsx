@@ -11,13 +11,16 @@ import { BsBookmark } from "react-icons/bs";       // for bookmark icon
 import { BsBookmarkFill } from "react-icons/bs";   // for filled bookmark icon
 
 import { formatCount, onToggleBookmark} from '../../utils/helpers.js'; 
+import {updateBookmarkList} from './BookmarkList.jsx';
 
-function Repocard({ repo}) {
 
-  // const [isBookmarked, setIsBookmarked] = useState([bookmarks.includes(repo.id)]);
+function Repocard({repo, isBookmark}) {
+
+  const [isBookmarked, setIsBookmarked] = useState(isBookmark);
   const onClickBookmark = () => {
-    const bookmarkedReposIDList = onToggleBookmark(repo.id);
-    // setIsBookmarked(!isBookmarked);
+    onToggleBookmark(repo.id);
+    if(isBookmarked) updateBookmarkList(repo.id);
+    setIsBookmarked(!isBookmarked);
   }
   
   return (
@@ -64,10 +67,8 @@ function Repocard({ repo}) {
 
       <div className='button-section'>
           <div className="bookmark-button">
-            <button onClick={
-                () => {onClickBookmark}}>
-                  <BsBookmark/>
-                {/* {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />} */}
+            <button onClick={onClickBookmark}>
+                {isBookmarked ? <BsBookmarkFill /> : <BsBookmark />}
             </button>
           </div>
 

@@ -7,7 +7,6 @@ import Repolist from '../Repo/RepoList.jsx';
 function Home() {
   // State to hold fetched repositories
   const [repos, setRepos] = useState([]);
-  console.log(repos)
 
   // Filter states
   const [selectedStar, setSelectedStar] = useState('Any');
@@ -20,7 +19,7 @@ function Home() {
     }
 );
 
-  // Pagination states
+  // Pagination states  
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
