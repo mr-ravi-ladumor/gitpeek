@@ -3,7 +3,7 @@ import { handleRepos, handleRepoById } from '../controllers/github.js';
 
 const router = express.Router();
 
-router.get('/repos', handleRepos);
-router.get('/repo/:id', handleRepoById);
+router.route('/repos').post(handleRepos);
+router.route('/repo/:id').post(handleRepoById);
 
 export default router;
