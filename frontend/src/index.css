@@ -1,3 +1,15 @@
+:root{
+  --color : #fff;
+  --color-hover:white;
+  --primary-color: #22b14c;
+  --primary-bg-color: #17913a;
+  --bg: #f7f9fb;
+  --text-color: #222;
+  --text-light: #444;
+  --font-main: 'Segoe UI', Arial, sans-serif;
+  --transition: background-color 0.3s ease;
+  color: #4acd6ff0;
+}
 
 * {
   margin: 0;
@@ -6,13 +18,11 @@
 }
 
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background-color: #f7f9fb;
-  color: #222;
+  font-family: var(--font-main);
+  background-color: var(--bg);
+  color: var(--text-color);
   line-height: 1.5;
 }
-
-
 
 
 button {
@@ -26,21 +36,20 @@ button {
 }
 
 button:hover {
-  background-color: #1e40af;
+  background-color: var(--primary-bg-color);
 }
 
-/* Headings */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
-/* Links */
 a {
-  color: #2563eb;
+  color: var(--color);
   text-decoration: none;
 }
 
 a:hover {
+  color: var(--color-hover);
   text-decoration: underline;
 }

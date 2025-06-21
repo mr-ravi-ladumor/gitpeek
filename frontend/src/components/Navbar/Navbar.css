@@ -1,16 +1,21 @@
 .navbar {
-  display: flex;
   height:65px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 24px;
-  /* background-color: #1f1f1f; */
-  background-color: #22b14c;
+  padding: 12px 30px;
+  background-color: var(--primary-color);
   color: white;
   width: 100vw;
   position: fixed;
   top: 0;
-  z-index: 1000;
+  z-index: 10;
+  transition: var(--transition);
+}
+
+
+.navbar:hover{
+  background-color: var(--primary-bg-color);
 }
 
 
@@ -20,40 +25,36 @@
 .left-nav li a{
   font-size: 24px;
   font-weight: bold;
-  color: #ddd;
 }
 
 .left-nav li a:hover {
   text-decoration: none;
-  color: #fff;
 }
 
-.middle-nav,
 .right-nav {
   list-style: none;
   display: flex;
-  gap: 16px;
+  gap: 20px;
 }
 
-.middle-nav li a,
 .right-nav li a {
-  color: #ddd;
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease;
 }
 
-.middle-nav li a:hover,
-.right-nav li a:hover {
-  color: #fff;
-}
 
-.signup-btn {
-  /* background-color: #007bff; */
-  padding: 6px 12px;
-  border-radius: 6px;
-  color: white;
-  transition: background 0.3s;
+@media (max-width: 600px){
+  .navbar{
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    height: auto;
+    width: 100vw;
+    gap: 8px;
+    padding: 5px;
+  }
+  
 }
 
 
