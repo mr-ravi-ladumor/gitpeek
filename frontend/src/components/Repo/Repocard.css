@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: #fff;
+  color: #343a40;
+  background-color: var(--color);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.08);
   padding: 12px 16px;
@@ -13,7 +14,7 @@
   width: 72vw;
   max-width: 310px;
   transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-  color: #343a40;
+
 }
 
 .repo-card:hover {
@@ -114,7 +115,6 @@
   gap: 10px;
 }
 
-/* Bookmark button styles */
 .bookmark-button button {
   background: none;
   border: none;
@@ -124,7 +124,7 @@
   border-radius: 50%;
   transition: background 0.18s;
   font-size: 1.15rem;
-  color: #22b14c;
+  color: var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,13 +133,12 @@
 .bookmark-button button:hover,
 .bookmark-button button:focus {
   background: #e5f7ea;
-  color: #178d36;
+  color: var(--primary-bg-color);
   box-shadow: 0 4px 9px rgba(34,177,76,0.08);
 }
 
 .bookmark-button .bs-bookmark-fill {
-  color: #22b14c;
-  /* color: #e1ede4; */
+  color: var(--primary-color);
 }
 
 .bookmark-button .bs-bookmark {
@@ -150,12 +149,11 @@
   width: fit-content;
   padding: 7px 12px;
   background-color: #22b14c;
-  /* background-color: #24292e; */
   color: white;
   text-decoration: none;
   border-radius: 5px;
   font-size: 0.85rem;
-  transition: background-color 0.2s ease;
+  transition: var(--transition);
 }
 
 .github-button:hover {
@@ -163,3 +161,9 @@
   text-decoration: none;
 }
 
+
+@media (max-width: 600px) {
+  .repo-card {
+    height:21vh;
+  }
+}

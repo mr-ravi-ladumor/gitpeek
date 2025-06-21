@@ -24,7 +24,7 @@ return (
     <h2 className="repolist-title">Repositories</h2>  
     <div className="repolist-container">
       {repos.length === 0 ? (
-        <p>No repositories found. Please Try to Refresh Page </p>
+        <p className='message'>No repositories found. Please Try to Refresh Page </p>
       ) : renderedRepos}
     </div>
   </div>
