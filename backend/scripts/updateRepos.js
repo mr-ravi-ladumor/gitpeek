@@ -1,12 +1,17 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: '../.env' });
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+if (!process.env.MONGODB_URI || !process.env.GITHUB_TOKEN) {
+  console.error("Missing env vars: MONGODB_URI or GITHUB_TOKEN");
+  process.exit(1);
+}
 import Repo from '../models/repo.model.js';
 import connectDB from '../config/db.connection.js';
+
 
 async function updateRepos() {
   await connectDB();
   const repos = await Repo.find({}, { fullName: 1, id: 1 });
-  console.log('updating repos...', repos.length);
 
   for (const repo of repos) {
     try {
