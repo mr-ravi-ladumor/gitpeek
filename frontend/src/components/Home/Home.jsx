@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import './Home.css';
 import SeachFilter from '../SearchFilter/SearchFilter.jsx';
-import Repolist from '../Repo/RepoList.jsx';
+import Repolist from '../Repo/Repolist.jsx';
 
 function Home() {
   // State to hold fetched repositories
