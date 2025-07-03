@@ -2,7 +2,7 @@ name: Update Repos
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Every 24 hours
+    - cron: '0 0 * * *'     # Every 24 hours
   workflow_dispatch:        # Optional manual trigger from GitHub UI
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
 
       - name: Install Dependencies
         run: npm install

@@ -42,7 +42,8 @@ function Home() {
     (async () => {
       try {
         // Fetch repos from the backend API
-        const response = await fetch(`http://localhost:5000/api/github/repos?${params}`);
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:5000"}/api/github/repos`;
+        const response = await fetch(`${apiUrl}?${params}`);
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         setRepos(data.repos);

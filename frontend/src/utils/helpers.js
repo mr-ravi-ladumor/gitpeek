@@ -32,7 +32,8 @@ export async function getBookmarkedRepos(){
   const results = [];
     for (const id of bookmarkedReposId) {
       try {
-        const response = await fetch(`http://localhost:5000/api/github/repo/${id}`);
+        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:5000"}/api/github/repo`;
+        const response = await fetch(`${apiUrl}/${id}`);
         if (!response.ok) continue;
         const data = await response.json();
         if (data.repo) results.push(data.repo);
