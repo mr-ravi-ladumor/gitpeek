@@ -45,7 +45,6 @@ GitPeek/
 │   ├── models/            # MongoDB schemas
 │   ├── routes/            # API routes
 │   ├── scripts/           # Data fetching scripts
-│   ├── .github/           # GitHub Actions workflows
 │   ├── constants.js       # Project constants
 │   ├── package.json       # Backend dependencies
 │   ├── .env               # Environment variables
@@ -61,6 +60,8 @@ GitPeek/
 │   ├── eslint.config.js   # ESLint configuration
 │   ├── .gitignore         # Git ignore rules
 │   └── index.html         # HTML entry point
+├── .github/               # GitHub Actions workflows
+│   └── workflows/
 └── README.md              # Project documentation
 ```
 
