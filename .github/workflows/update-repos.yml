@@ -2,16 +2,12 @@ name: Update Repos
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Every 24 hours
-  workflow_dispatch: # Optional manual trigger from GitHub UI
+    - cron: '0 0 * * *'     # Every 24 hours
+  workflow_dispatch:        # Optional manual trigger from GitHub UI
 
 jobs:
   update-repos:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./backend
 
     steps:
       - name: Checkout Repo
@@ -23,9 +19,11 @@ jobs:
           node-version: 22
 
       - name: Install Dependencies
+        working-directory: ./backend
         run: npm install
 
       - name: Run Update Script
+        working-directory: ./backend
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
