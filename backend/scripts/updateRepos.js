@@ -1,8 +1,8 @@
 // Enhanced version of updateRepos.js
-if (!process.env.MONGODB_URI || !process.env.GITHUB_TOKEN) {
+if (!process.env.MONGODB_URI || !process.env.TOKEN_GITHUB) {
   console.error("Missing env vars: MONGODB_URI or GITHUB_TOKEN");
   console.log("MONGODB_URI exists:", !!process.env.MONGODB_URI);
-  console.log("GITHUB_TOKEN exists:", !!process.env.GITHUB_TOKEN);
+  console.log("GITHUB_TOKEN exists:", !!process.env.TOKEN_GITHUB);
   process.exit(1);
 }
 
@@ -26,7 +26,7 @@ async function updateRepos() {
       try {
         const res = await fetch(`https://api.github.com/repos/${repo.fullName}`, {
           headers: {
-            Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+            Authorization: `Bearer ${process.env.TOKEN_GITHUB}`,
             Accept: 'application/vnd.github+json'
           }
         });
