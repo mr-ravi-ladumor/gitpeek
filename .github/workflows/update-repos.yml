@@ -26,5 +26,5 @@ jobs:
         working-directory: ./backend
         env:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}  
         run: node scripts/updateRepos.js

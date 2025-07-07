@@ -1,4 +1,4 @@
-// Enhanced version of updateRepos.js
+
 if (!process.env.MONGODB_URI || !process.env.TOKEN_GITHUB) {
   console.error("Missing env vars: MONGODB_URI or GITHUB_TOKEN");
   console.log("MONGODB_URI exists:", !!process.env.MONGODB_URI);
