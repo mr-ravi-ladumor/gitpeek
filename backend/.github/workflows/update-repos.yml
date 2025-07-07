@@ -23,6 +23,6 @@ jobs:
 
       - name: Run Update Script
         env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI  }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: node scripts/updateRepos.js
