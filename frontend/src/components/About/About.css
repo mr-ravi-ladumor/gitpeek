@@ -1,0 +1,86 @@
+.about {
+  margin-top: 100px;
+  padding: 40px 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-header h1 {
+  font-size: 2.2rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+}
+
+.about-header p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.about-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-section {
+  margin-bottom: 30px;
+}
+
+.about-section h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 5px;
+}
+
+.about-section p {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.about-buttons {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.github-btn {
+  background: var(--primary-color);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+  display: inline-block;
+}
+
+.github-btn:hover {
+  background: var(--primary-bg-color);
+  text-decoration: none;
+  color: white;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .about {
+    padding: 20px 15px;
+  }
+
+  .about-content {
+    padding: 20px;
+  }
+
+  .about-header h1 {
+    font-size: 1.8rem;
+  }
+}

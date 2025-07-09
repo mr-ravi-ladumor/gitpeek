@@ -6,6 +6,7 @@ import './App.css';
 import BookmarkList from './components/Repo/BookmarkList.jsx';
 import Navbar from './components/Navbar/Navbar.jsx';
 import Home from './components/Home/Home.jsx';
+import About from './components/About/About.jsx';
 
 // import utility functions
 import { getBookmarkedRepos } from './utils/helpers.js';
@@ -29,7 +30,7 @@ function App() {
               <Home/>
             } 
           />
-          <Route path='about' element={<><p>THis is about page </p></>} />
+          <Route path='about' element={<About/>} />
           <Route path='bookmark'
             element={<BookmarkList/>}
             loader= {getBookmarkedRepos}
