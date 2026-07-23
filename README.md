@@ -6,7 +6,7 @@ A full-stack web application to discover and explore active open source GitHub r
 
 ## Features
 
-- **Repository Discovery**: Browse through 12,000+ pre-fetched open source repositories
+- **Repository Discovery**: Browse through 10,000+ pre-fetched open source repositories
 - **Advanced Filtering**: Filter by programming language, star count, and topics
 - **Smart Sorting**: Sort repositories by stars, forks, or recent activity
 - **Bookmark System**: Save interesting repositories with local storage
