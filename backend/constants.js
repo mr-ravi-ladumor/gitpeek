@@ -1,4 +1,4 @@
-export const DB_NAME = "gitpeekDB"; // Name of the MongoDB database
+export const DB_NAME = "gitpeekDB";
 
 export const LANGUAGES = [
   "JavaScript",

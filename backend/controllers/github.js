@@ -21,10 +21,10 @@ export const handleRepos = async (req, res) => {
         .limit(Number(limit))
         .sort({ [sort]: sortOrder });
     } else {
-      repos = await Repo.aggregate([
-        { $match: query },
-        { $sample: { size: Number(limit) } }
-      ]);
+       repos = await Repo.find(query)
+      .skip(skip)
+      .limit(Number(limit))
+      .sort({ createdAt: -1 }); 
     }
 
     const totalRepos = await Repo.countDocuments(query);

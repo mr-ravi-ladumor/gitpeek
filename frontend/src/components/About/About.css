@@ -1,6 +1,5 @@
 .about {
-  margin-top: 100px;
-  padding: 40px 20px;
+  padding: 2.5rem 1.5rem 4rem 1.5rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -8,79 +7,80 @@
 
 .about-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .about-header h1 {
   font-size: 2.2rem;
-  color: var(--text-color);
-  margin-bottom: 10px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
 }
 
 .about-header p {
-  color: var(--text-light);
-  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-size: 1.05rem;
 }
 
 .about-content {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .about-section {
-  margin-bottom: 30px;
+  margin-bottom: 2rem;
 }
 
 .about-section h2 {
-  color: var(--primary-color);
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  border-bottom: 2px solid var(--primary-color);
-  padding-bottom: 5px;
+  color: var(--text-main);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-light);
 }
 
 .about-section p {
-  color: var(--text-light);
+  color: var(--text-muted);
   line-height: 1.6;
-  margin-bottom: 15px;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .about-buttons {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 2rem;
 }
 
 .github-btn {
-  background: var(--primary-color);
+  background-color: var(--primary-color);
   color: white;
-  padding: 12px 32px;
-  border-radius: 6px;
-  text-decoration: none;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
-  transition: background 0.2s;
+  font-size: 0.925rem;
+  transition: background-color var(--transition-fast);
   display: inline-block;
 }
 
 .github-btn:hover {
-  background: var(--primary-bg-color);
+  background-color: var(--primary-hover);
   text-decoration: none;
   color: white;
 }
 
-/* Mobile Responsive */
 @media (max-width: 768px) {
   .about {
-    padding: 20px 15px;
+    padding: 1.5rem 1rem 3rem 1rem;
   }
 
   .about-content {
-    padding: 20px;
+    padding: 1.25rem;
   }
 
   .about-header h1 {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
   }
 }

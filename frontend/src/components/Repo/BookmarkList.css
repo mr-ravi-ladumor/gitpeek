@@ -1,38 +1,89 @@
 
-.bookmark-list{
-  margin-top: 60px;
-  padding: 40px 0px;
-} 
-
-.bookmark-title{
-  margin: 20px;
-  font-size: 1.6rem;
-  font-weight: bold;
-  text-align: left;
+.bookmark-page-section {
+  max-width: 1200px;
+  margin: 2rem auto 4rem auto;
+  padding: 0 1.5rem;
 }
 
-.bookmark-cards{
-  padding-top:10px;
-  width: 100%;
+.bookmark-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-icon {
+  font-size: 1.35rem;
+  color: var(--primary-color);
+}
+
+.bookmark-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.bookmark-count {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 500;
+  background-color: var(--primary-light);
+  border: 1px solid var(--primary-border);
+  color: var(--primary-hover);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.bookmark-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  justify-items: center;
-  align-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
 }
 
-.message{
-  font-size: 1.2rem;
-  color: #555;
-  text-align: left;
-  margin: auto;
-  width: 100%;
+.bookmark-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
 }
 
-@media (max-width: 600px) {
-  .bookmark-cards {
-    grid-template-columns: repeat(1, 1fr);
-    /* grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); */
-    gap: 10px;
+.bookmark-empty-state .empty-icon {
+  font-size: 3rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.bookmark-empty-state h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.bookmark-empty-state p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 420px;
+}
+
+@media (max-width: 640px) {
+  .bookmark-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

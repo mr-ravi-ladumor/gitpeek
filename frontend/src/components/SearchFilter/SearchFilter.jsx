@@ -1,4 +1,19 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import {
+  FiFilter,
+  FiChevronDown,
+  FiSearch,
+  FiX,
+  FiCheck,
+  FiRotateCcw,
+  FiStar,
+  FiCode,
+  FiTag,
+  FiArrowUpRight,
+  FiCalendar,
+  FiShuffle,
+} from "react-icons/fi";
+import { GoStar, GoRepoForked, GoIssueOpened } from "react-icons/go";
 import "./SearchFilter.css";
 import {
   starOptions,
@@ -7,7 +22,22 @@ import {
   sortOptions,
 } from "../../utils/constants.js";
 
-function SeachFilter({
+const renderSortIcon = (iconName) => {
+  switch (iconName) {
+    case "star":
+      return <GoStar className="sort-icon-item star-color" />;
+    case "fork":
+      return <GoRepoForked className="sort-icon-item fork-color" />;
+    case "issue":
+      return <GoIssueOpened className="sort-icon-item issue-color" />;
+    case "calendar":
+      return <FiCalendar className="sort-icon-item calendar-color" />;
+    default:
+      return <FiShuffle className="sort-icon-item shuffle-color" />;
+  }
+};
+
+function SearchFilter({
   selectedStar,
   setSelectedStar,
   selectedLanguages,
@@ -19,16 +49,12 @@ function SeachFilter({
   setCurrentPage,
 }) {
   const [showStarDropdown, setShowStarDropdown] = useState(false);
-
   const [languageQuery, setLanguageQuery] = useState("");
   const [showLangDropdown, setShowLangDropdown] = useState(false);
-
   const [topicQuery, setTopicQuery] = useState("");
   const [showTopicDropdown, setShowTopicDropdown] = useState(false);
-
   const [showSortDropdown, setShowSortDropdown] = useState(false);
 
-  // Close dropdowns on outside click
   const starRef = useRef();
   const langRef = useRef();
   const topicRef = useRef();
@@ -55,287 +81,320 @@ function SeachFilter({
         ? selectedItems.filter((i) => i !== item)
         : [...selectedItems, item]
     );
+    setCurrentPage(1);
   };
 
+  const handleStarSelect = (option) => {
+    setSelectedStar(option);
+    setShowStarDropdown(false);
+    setCurrentPage(1);
+  };
+
+  const handleSortSelect = (opt) => {
+    setSelectedSort(
+      opt.value ? { value: opt.value, order: opt.order } : { value: "", order: "" }
+    );
+    setShowSortDropdown(false);
+    setCurrentPage(1);
+  };
+
+  const clearAllFilters = () => {
+    setSelectedStar("Any");
+    setSelectedLanguages([]);
+    setSelectedTopics([]);
+    setSelectedSort({ value: "", order: "" });
+    setCurrentPage(1);
+  };
+
+  const hasActiveFilters =
+    selectedStar !== "Any" ||
+    selectedLanguages.length > 0 ||
+    selectedTopics.length > 0 ||
+    Boolean(selectedSort?.value);
+
+  const currentSortOpt = sortOptions.find(
+    (opt) =>
+      (!opt.value && !selectedSort?.value) ||
+      (opt.value === selectedSort?.value && opt.order === selectedSort?.order)
+  );
+
+  const isCustomSort = Boolean(selectedSort?.value);
+
   return (
-    <div className="filter-container">
-      <div className="filter-section">
-        <div className="filter-title">Filter Projects</div>
-        <div className="filter-fields">
-          {/* Stars */}
-          <div className="filter-dropdown" ref={starRef}>
-            <div className="filter-label">Stars</div>
-            <div
-              className="dropdown-input"
+    <div className="filter-wrapper">
+      <div className="filter-toolbar">
+        <div className="filter-toolbar-header">
+          <FiFilter className="filter-header-icon" />
+          <span>Filter & Sort</span>
+        </div>
+
+        <div className="filter-controls-group">
+          {/* Stars Dropdown */}
+          <div className="filter-dropdown-container" ref={starRef}>
+            <button
+              type="button"
+              className={`filter-btn ${selectedStar !== "Any" ? "active" : ""} ${showStarDropdown ? "open" : ""}`}
               onClick={() => setShowStarDropdown((prev) => !prev)}
             >
-              {selectedStar === "Any" ? "Any" : `${selectedStar}+`}
-              <span className="dropdown-arrow">▼</span>
-            </div>
+              <FiStar className="btn-icon" />
+              <span>{selectedStar === "Any" ? "Stars" : `${selectedStar}+ stars`}</span>
+              <FiChevronDown className={`chevron-icon ${showStarDropdown ? "open" : ""}`} />
+            </button>
+
             {showStarDropdown && (
-              <div className="dropdown-list">
+              <div className="dropdown-menu">
+                <div className="dropdown-menu-header">Minimum Stars</div>
                 {starOptions.map((option) => (
                   <div
                     key={option}
-                    className={`dropdown-item${
-                      selectedStar === option ? " selected" : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedStar(option);
-                      setShowStarDropdown((prev) => !prev);
-                    }}
+                    className={`dropdown-menu-item ${selectedStar === option ? "selected" : ""}`}
+                    onClick={() => handleStarSelect(option)}
                   >
-                    {option === "Any" ? "Any" : `${option}+`}
+                    <span>{option === "Any" ? "Any Stars" : `${option}+ stars`}</span>
+                    {selectedStar === option && <FiCheck className="check-icon" />}
                   </div>
                 ))}
               </div>
             )}
-            {/* stars dropdown ends */}
           </div>
 
-          {/* Languages */}
-          <div className="filter-dropdown" ref={langRef}>
-            <div className="filter-label">Languages</div>
-            <div
-              className="dropdown-input"
+          {/* Languages Dropdown */}
+          <div className="filter-dropdown-container" ref={langRef}>
+            <button
+              type="button"
+              className={`filter-btn ${selectedLanguages.length > 0 ? "active" : ""} ${showLangDropdown ? "open" : ""}`}
               onClick={() => setShowLangDropdown((prev) => !prev)}
             >
-              <div className="dropdown-selected-items">
-                {selectedLanguages.length === 0 ? (
-                  <span className="placeholder">Select languages...</span>
-                ) : (
-                  selectedLanguages.map((lang) => (
-                    <span className="tag" key={lang}>
-                      {lang}
-                      <span
-                        className="tag-close"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleSelection(
-                            lang,
-                            selectedLanguages,
-                            setSelectedLanguages
-                          );
-                        }}
-                      >
-                        ✕
-                      </span>
-                    </span>
-                  ))
-                )}
-              </div>
-              <span
-                className={
-                  "dropdown-arrow" + `${showLangDropdown ? " open" : ""}`
-                }
-              >
-                ▼
-              </span>
-            </div>
+              <FiCode className="btn-icon" />
+              <span>Languages</span>
+              {selectedLanguages.length > 0 && (
+                <span className="badge">{selectedLanguages.length}</span>
+              )}
+              <FiChevronDown className={`chevron-icon ${showLangDropdown ? "open" : ""}`} />
+            </button>
+
             {showLangDropdown && (
-              <div className="dropdown-list">
-                <input
-                  type="text"
-                  className="dropdown-search"
-                  value={languageQuery}
-                  onChange={(e) => setLanguageQuery(e.target.value)}
-                  placeholder="Search language..."
-                  onClick={(e) => e.stopPropagation()}
-                />
-                {(() => {
-                  const filteredLanguages = languages.filter((l) =>
-                    l.toLowerCase().includes(languageQuery.toLowerCase())
-                  );
-                  if (filteredLanguages.length === 0) {
-                    return (
-                      <div className="dropdown-item no-results">
-                        No languages found
-                      </div>
+              <div className="dropdown-menu dropdown-menu-wide">
+                <div className="search-input-wrapper">
+                  <FiSearch className="search-icon" />
+                  <input
+                    type="text"
+                    className="dropdown-search-input"
+                    value={languageQuery}
+                    onChange={(e) => setLanguageQuery(e.target.value)}
+                    placeholder="Search languages..."
+                    autoFocus
+                  />
+                  {languageQuery && (
+                    <button type="button" className="clear-search-btn" onClick={() => setLanguageQuery("")}>
+                      <FiX />
+                    </button>
+                  )}
+                </div>
+                <div className="dropdown-scroll-area">
+                  {(() => {
+                    const filtered = languages.filter((l) =>
+                      l.toLowerCase().includes(languageQuery.toLowerCase())
                     );
-                  }
-                  return filteredLanguages.map((lang) => (
-                    <div
-                      key={lang}
-                      className={`dropdown-item${
-                        selectedLanguages.includes(lang) ? " selected" : ""
-                      }`}
-                      onClick={() =>
-                        toggleSelection(
-                          lang,
-                          selectedLanguages,
-                          setSelectedLanguages
-                        )
-                      }
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedLanguages.includes(lang)}
-                        readOnly
-                      />
-                      {lang}
-                    </div>
-                  ));
-                })()}
+                    if (filtered.length === 0) {
+                      return <div className="dropdown-no-results">No languages found</div>;
+                    }
+                    return filtered.map((lang) => {
+                      const isSelected = selectedLanguages.includes(lang);
+                      return (
+                        <div
+                          key={lang}
+                          className={`dropdown-menu-item ${isSelected ? "selected" : ""}`}
+                          onClick={() => toggleSelection(lang, selectedLanguages, setSelectedLanguages)}
+                        >
+                          <div className="checkbox-box">{isSelected && <FiCheck />}</div>
+                          <span>{lang}</span>
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
               </div>
             )}
-            {/* languages dropdown ends */}
           </div>
 
-          {/* Topics */}
-          <div className="filter-dropdown" ref={topicRef}>
-            <div className="filter-label">Topics</div>
-            <div
-              className="dropdown-input"
+          {/* Topics Dropdown */}
+          <div className="filter-dropdown-container" ref={topicRef}>
+            <button
+              type="button"
+              className={`filter-btn ${selectedTopics.length > 0 ? "active" : ""} ${showTopicDropdown ? "open" : ""}`}
               onClick={() => setShowTopicDropdown((prev) => !prev)}
             >
-              <div className="dropdown-selected-items">
-                {selectedTopics.length === 0 ? (
-                  <span className="placeholder">Select topics...</span>
-                ) : (
-                  selectedTopics.map((topic) => (
-                    <span className="tag" key={topic}>
-                      {topic}
-                      <span
-                        className="tag-close"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleSelection(
-                            topic,
-                            selectedTopics,
-                            setSelectedTopics
-                          );
-                        }}
-                      >
-                        ✕
-                      </span>
-                    </span>
-                  ))
-                )}
-              </div>
-              <span
-                className={
-                  "dropdown-arrow" + `${showTopicDropdown ? " open" : ""}`
-                }
-              >
-                ▼
-              </span>
-            </div>
+              <FiTag className="btn-icon" />
+              <span>Topics</span>
+              {selectedTopics.length > 0 && (
+                <span className="badge">{selectedTopics.length}</span>
+              )}
+              <FiChevronDown className={`chevron-icon ${showTopicDropdown ? "open" : ""}`} />
+            </button>
+
             {showTopicDropdown && (
-              <div className="dropdown-list">
-                <input
-                  type="text"
-                  className="dropdown-search"
-                  value={topicQuery}
-                  onChange={(e) => setTopicQuery(e.target.value)}
-                  placeholder="Search topic..."
-                  onClick={(e) => e.stopPropagation()}
-                />
-                {(() => {
-                  const filteredTopics = topics.filter((t) =>
-                    t.toLowerCase().includes(topicQuery.toLowerCase())
-                  );
-                  if (filteredTopics.length === 0) {
-                    return (
-                      <div className="dropdown-item no-results">
-                        No topics found
-                      </div>
+              <div className="dropdown-menu dropdown-menu-wide">
+                <div className="search-input-wrapper">
+                  <FiSearch className="search-icon" />
+                  <input
+                    type="text"
+                    className="dropdown-search-input"
+                    value={topicQuery}
+                    onChange={(e) => setTopicQuery(e.target.value)}
+                    placeholder="Search topics..."
+                    autoFocus
+                  />
+                  {topicQuery && (
+                    <button type="button" className="clear-search-btn" onClick={() => setTopicQuery("")}>
+                      <FiX />
+                    </button>
+                  )}
+                </div>
+                <div className="dropdown-scroll-area">
+                  {(() => {
+                    const filtered = topics.filter((t) =>
+                      t.toLowerCase().includes(topicQuery.toLowerCase())
                     );
-                  }
-                  return filteredTopics.map((topic) => (
-                    <div
-                      key={topic}
-                      className={`dropdown-item${
-                        selectedTopics.includes(topic) ? " selected" : ""
-                      }`}
-                      onClick={() =>
-                        toggleSelection(
-                          topic,
-                          selectedTopics,
-                          setSelectedTopics
-                        )
-                      }
-                    >
-                      <input
-                        type="checkbox"
-                        checked={selectedTopics.includes(topic)}
-                        readOnly
-                      />
-                      {topic}
-                    </div>
-                  ));
-                })()}
+                    if (filtered.length === 0) {
+                      return <div className="dropdown-no-results">No topics found</div>;
+                    }
+                    return filtered.map((topic) => {
+                      const isSelected = selectedTopics.includes(topic);
+                      return (
+                        <div
+                          key={topic}
+                          className={`dropdown-menu-item ${isSelected ? "selected" : ""}`}
+                          onClick={() => toggleSelection(topic, selectedTopics, setSelectedTopics)}
+                        >
+                          <div className="checkbox-box">{isSelected && <FiCheck />}</div>
+                          <span>{topic}</span>
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
               </div>
             )}
-            {/* /* topics dropdown ends */}
           </div>
 
-          {/* sort by */}
-          <div className="filter-dropdown" ref={sortRef}>
-            <div className="filter-label">Sort By</div>
-            <div
-              className="dropdown-input"
+          {/* Sort By Dropdown */}
+          <div className="filter-dropdown-container" ref={sortRef}>
+            <button
+              type="button"
+              className={`filter-btn ${isCustomSort ? "active" : ""} ${showSortDropdown ? "open" : ""}`}
               onClick={() => setShowSortDropdown((prev) => !prev)}
             >
-              {sortOptions.find(
-                (opt) =>
-                  opt.value &&
-                  opt.order &&
-                  opt.value === selectedSort?.value &&
-                  opt.order === selectedSort?.order
-              )?.label || "Sort by..."}
-              <span className="dropdown-arrow">▼</span>
-            </div>
+              <FiArrowUpRight className="btn-icon" />
+              <span>
+                {isCustomSort ? `Sort: ${currentSortOpt?.shortLabel || currentSortOpt?.label}` : "Sort By"}
+              </span>
+              <FiChevronDown className={`chevron-icon ${showSortDropdown ? "open" : ""}`} />
+            </button>
+
             {showSortDropdown && (
-              <div className="dropdown-list">
-                {sortOptions.map((opt) => (
-                  <div
-                    key={opt.label}
-                    className={`dropdown-item${
-                      selectedSort?.value === opt.value &&
-                      selectedSort?.order === opt.order
-                        ? " selected"
-                        : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedSort(
-                        opt.value && { value: opt.value, order: opt.order }
-                      );
-                      setShowSortDropdown((prev) => !prev);
-                    }}
-                  >
-                    {opt.label}
-                  </div>
-                ))}
+              <div className="dropdown-menu dropdown-menu-sort">
+                <div className="dropdown-menu-header">Sort Repositories</div>
+                <div className="dropdown-scroll-area">
+                  {sortOptions.map((opt) => {
+                    const isSelected =
+                      (!opt.value && !selectedSort?.value) ||
+                      (selectedSort?.value === opt.value && selectedSort?.order === opt.order);
+                    return (
+                      <div
+                        key={`${opt.value}-${opt.order}-${opt.label}`}
+                        className={`dropdown-menu-item sort-dropdown-item ${isSelected ? "selected" : ""}`}
+                        onClick={() => handleSortSelect(opt)}
+                      >
+                        <div className="sort-item-left">
+                          {renderSortIcon(opt.icon)}
+                          <div className="sort-item-info">
+                            <span className="sort-item-label">{opt.label}</span>
+                            {opt.hint && <span className="sort-item-hint">{opt.hint}</span>}
+                          </div>
+                        </div>
+                        <div className="sort-item-right">
+                          {opt.direction && (
+                            <span className="sort-direction-badge">{opt.direction}</span>
+                          )}
+                          {isSelected && <FiCheck className="check-icon" />}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
         </div>
-
-        {/* clear all filter button  */}
-        <div className="clear-filters">
-          <button
-            onClick={() => {
-              if (
-                selectedStar === "Any" &&
-                selectedLanguages.length === 0 &&
-                selectedTopics.length === 0 &&
-                !selectedSort.value
-              )
-                return;
-
-              setSelectedStar("Any");
-              setSelectedLanguages([]);
-              setSelectedTopics([]);
-              setSelectedSort({ value: "", order: "" });
-              setCurrentPage(1);
-            }}
-          >
-            Clear All Filters
-          </button>
-        </div>
       </div>
+
+      {/* Active Filters Tag Bar */}
+      {hasActiveFilters && (
+        <div className="active-filters-bar">
+          <span className="active-filters-label">Active filters:</span>
+          <div className="active-tags-list">
+            {selectedStar !== "Any" && (
+              <span className="filter-tag">
+                <span>⭐ {selectedStar}+ stars</span>
+                <button
+                  type="button"
+                  className="tag-remove-btn"
+                  onClick={() => handleStarSelect("Any")}
+                >
+                  <FiX />
+                </button>
+              </span>
+            )}
+
+            {selectedLanguages.map((lang) => (
+              <span className="filter-tag" key={lang}>
+                <span>{lang}</span>
+                <button
+                  type="button"
+                  className="tag-remove-btn"
+                  onClick={() => toggleSelection(lang, selectedLanguages, setSelectedLanguages)}
+                >
+                  <FiX />
+                </button>
+              </span>
+            ))}
+
+            {selectedTopics.map((topic) => (
+              <span className="filter-tag" key={topic}>
+                <span>#{topic}</span>
+                <button
+                  type="button"
+                  className="tag-remove-btn"
+                  onClick={() => toggleSelection(topic, selectedTopics, setSelectedTopics)}
+                >
+                  <FiX />
+                </button>
+              </span>
+            ))}
+
+            {isCustomSort && (
+              <span className="filter-tag sort-tag">
+                <span>Sort: {currentSortOpt?.shortLabel || currentSortOpt?.label}</span>
+                <button
+                  type="button"
+                  className="tag-remove-btn"
+                  onClick={() => handleSortSelect({ value: "", order: "" })}
+                >
+                  <FiX />
+                </button>
+              </span>
+            )}
+
+            <button type="button" className="clear-all-btn" onClick={clearAllFilters}>
+              <FiRotateCcw className="clear-icon" />
+              <span>Clear all</span>
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default SeachFilter;
+export default SearchFilter;

@@ -1,68 +1,35 @@
-import React, {useState, useEffect} from 'react';
-
+import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import './Home.css';
-import SeachFilter from '../SearchFilter/SearchFilter.jsx';
+import SearchFilter from '../SearchFilter/SearchFilter.jsx';
 import Repolist from '../Repo/Repolist.jsx';
 
-function Home() {
-  // State to hold fetched repositories
-  const [repos, setRepos] = useState([]);
-
-  // Filter states
-  const [selectedStar, setSelectedStar] = useState('Any');
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [selectedTopics, setSelectedTopics] = useState([]);
-  const [selectedSort, setSelectedSort] = useState(
-    {
-        value: '',
-        order: ''
-    }
-);
-
-  // Pagination states  
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
-
-  // Fetch repos when filters or page changes
-  useEffect(() => {
-
-    const params = new URLSearchParams();
-
-    if (selectedStar !== 'Any') params.append('stars', selectedStar);
-    if (selectedLanguages.length > 0) params.append('languages', selectedLanguages.join(','));
-    if (selectedTopics.length > 0) params.append('topics', selectedTopics.join(','));
-    params.append('page', currentPage);
-    params.append('per_page', 30);
-    if (selectedSort.value && selectedSort.order) {
-      params.append('sort', selectedSort.value);
-      params.append('order', selectedSort.order);
-    }
-
-    (async () => {
-      try {
-        // Fetch repos from the backend API
-        const apiUrl = `${import.meta.env.VITE_REACT_APP_API_URL || "http://localhost:5000"}/api/github/repos`;
-        const response = await fetch(`${apiUrl}?${params}`);
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        setRepos(data.repos);
-        setTotalPages(Math.ceil(data.total_count / 30));
-      } catch (error) {
-        console.log('Error fetching repos:', error.message);
-      }
-    })();
-  }, [ selectedStar, selectedLanguages, selectedTopics, currentPage, selectedSort]);
-
-
+function Home({
+  repos,
+  selectedStar,
+  setSelectedStar,
+  selectedLanguages,
+  setSelectedLanguages,
+  selectedTopics,
+  setSelectedTopics,
+  selectedSort,
+  setSelectedSort,
+  currentPage,
+  setCurrentPage,
+  totalPages,
+}) {
   return (
-    <div className='home'>
-      <div className="home-header">
-        <h1>Welcome to GitPeek</h1>
-        <p>Discover and bookmark amazing open-source GitHub projects. Join the community and start contributing today!</p>
-        {/* <button className="explore-btn">Explore Projects</button> */}
+    <div className="home">
+      <div className="home-hero">
+        <div className="hero-badge">
+          <span>10k+ Curated Open Source Repositories</span>
+        </div>
+        <h1 className="hero-title">Explore GitHub Repositories</h1>
+        <p className="hero-description">
+          Discover top open-source projects, filter by programming languages, stars, or topics, and bookmark your favorites.
+        </p>
       </div>
-      <SeachFilter
+
+      <SearchFilter
         selectedStar={selectedStar}
         setSelectedStar={setSelectedStar}
         selectedLanguages={selectedLanguages}
@@ -73,24 +40,41 @@ function Home() {
         setSelectedSort={setSelectedSort}
         setCurrentPage={setCurrentPage}
       />
-      <Repolist repos={repos}  />
-      <div className="pagination-controls">
-        <button className="prev-button"
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage(currentPage - 1)}
-        >
-          Prev
-        </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button className="next-button"
-          disabled={repos.length < 30}
-          onClick={() => setCurrentPage(currentPage + 1)}
-        >
-          Next
-        </button>
-      </div>
+
+      <Repolist repos={repos} />
+
+      {repos.length > 0 && (
+        <div className="pagination-wrapper">
+          <div className="pagination-controls">
+            <button
+              type="button"
+              className="pagination-btn"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+            >
+              <FiChevronLeft />
+              <span>Previous</span>
+            </button>
+            
+            <span className="pagination-info">
+              Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
+            </span>
+
+            <button
+              type="button"
+              className="pagination-btn"
+              disabled={currentPage >= totalPages || repos.length < 30}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+            >
+              <span>Next</span>
+              <FiChevronRight />
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default Home
+
+export default Home;

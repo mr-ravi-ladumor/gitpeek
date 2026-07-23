@@ -1,18 +1,51 @@
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import { ImGithub } from 'react-icons/im';
+import { BsBookmarkFill } from 'react-icons/bs';
+import { FiCompass, FiInfo } from 'react-icons/fi';
 import './Navbar.css';
 
 function Navbar() {
   return (
     <nav className="navbar">
-      <ul className="left-nav">
-        <li><Link to="/" >GitPeek</Link></li>
-      </ul>
+      <div className="navbar-container">
+        <Link to="/" className="navbar-logo">
+          <span className="logo-icon-wrapper">
+            <ImGithub />
+          </span>
+          <span className="logo-text">GitPeek</span>
+        </Link>
 
-      <ul className="right-nav">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/bookmark">Show Bookmark</Link></li>
-      </ul>
+        <ul className="navbar-links">
+          <li>
+            <NavLink 
+              to="/" 
+              end 
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <FiCompass className="nav-icon" />
+              <span>Explore</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink 
+              to="/bookmark" 
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <BsBookmarkFill className="nav-icon" />
+              <span>Bookmarks</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink 
+              to="/about" 
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              <FiInfo className="nav-icon" />
+              <span>About</span>
+            </NavLink>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 }

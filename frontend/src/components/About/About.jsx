@@ -14,7 +14,7 @@ const About = () => {
           <p>
             GitPeek is a web application where you can discover and explore
             GitHub repositories. Instead of manually searching through thousands
-            of repositories, GitPeek shows you over 12,000+ curated open source
+            of repositories, GitPeek shows you over 10,000+ curated open source
             projects in one place.
           </p>
         </section>
@@ -24,7 +24,7 @@ const About = () => {
           <p>
             You can filter repositories by programming languages (JavaScript,
             Python, Java, etc.), minimum star count (from 200 to 500k+ stars),
-            and specific topics like "web", "Frontedn", "react", "Backend" etc.
+            and specific topics like "web", "Frontend", "react", "Backend" etc.
             Sort them by stars, forks, issues, or creation date. You can also
             bookmark repositories to save them for later viewing.
           </p>

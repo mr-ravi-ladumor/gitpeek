@@ -20,6 +20,28 @@ export const languages = [
   "Rust",
   "Shell"
 ];
+
+export const languageColors = {
+  JavaScript: '#f1e05a',
+  TypeScript: '#3178c6',
+  Python: '#3572A5',
+  Java: '#b07219',
+  'C++': '#f34b7d',
+  C: '#555555',
+  'C#': '#178600',
+  Go: '#00ADD8',
+  Rust: '#dea584',
+  PHP: '#4F5D95',
+  Ruby: '#701516',
+  HTML: '#e34c26',
+  CSS: '#563d7c',
+  Vue: '#41b883',
+  Shell: '#89e051',
+  Kotlin: '#A97BFF',
+  Swift: '#F05138',
+  Dart: '#00B4AB',
+};
+
 export const starOptions = [
   "Any",
   "100", "500", "1000", "5000", "10000", "50000", "100000", "500000"
@@ -94,13 +116,13 @@ export const topics = [
 
 // sort by option and order
 export const sortOptions = [
-    { value: '', label: 'No sort', order: '' },
-    { value: 'starsCount', label: 'Stars (desc)', order: 'desc' },
-    { value: 'starsCount', label: 'Stars (asc)', order: 'asc' },
-    { value: 'forksCount', label: 'Forks (desc)', order: 'desc' },
-    { value: 'forksCount', label: 'Forks (asc)', order: 'asc' },
-    { value: 'openIssuesCount', label: 'Issues (desc)', order: 'desc' },
-    { value: 'openIssuesCount', label: 'Issues (asc)', order: 'asc' },
-    { value: 'createdAt', label: 'Created (desc)', order: 'desc' },
-    { value: 'createdAt', label: 'Created (asc)', order: 'asc' },
-  ];
+  { value: '', label: 'Default Discovery', order: '', shortLabel: 'Default', icon: 'shuffle', hint: 'Randomized exploration' },
+  { value: 'starsCount', label: 'Most Stars', order: 'desc', shortLabel: 'Most Stars', icon: 'star', direction: 'High → Low' },
+  { value: 'starsCount', label: 'Fewest Stars', order: 'asc', shortLabel: 'Fewest Stars', icon: 'star', direction: 'Low → High' },
+  { value: 'forksCount', label: 'Most Forks', order: 'desc', shortLabel: 'Most Forks', icon: 'fork', direction: 'High → Low' },
+  { value: 'forksCount', label: 'Fewest Forks', order: 'asc', shortLabel: 'Fewest Forks', icon: 'fork', direction: 'Low → High' },
+  { value: 'openIssuesCount', label: 'Most Open Issues', order: 'desc', shortLabel: 'Most Issues', icon: 'issue', direction: 'High → Low' },
+  { value: 'openIssuesCount', label: 'Fewest Open Issues', order: 'asc', shortLabel: 'Fewest Issues', icon: 'issue', direction: 'Low → High' },
+  { value: 'createdAt', label: 'Recently Added', order: 'desc', shortLabel: 'Recently Added', icon: 'calendar', direction: 'Newest first' },
+  { value: 'createdAt', label: 'Oldest Added', order: 'asc', shortLabel: 'Oldest Added', icon: 'calendar', direction: 'Oldest first' },
+];
