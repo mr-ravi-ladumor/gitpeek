@@ -75,12 +75,13 @@ function SearchFilter({
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  const toggleSelection = (item, selectedItems, setItems) => {
+  const toggleSelection = (item, selectedItems, setItems, closeDropdown) => {
     setItems(
       selectedItems.includes(item)
         ? selectedItems.filter((i) => i !== item)
         : [...selectedItems, item]
     );
+    if (closeDropdown) closeDropdown(false);
     setCurrentPage(1);
   };
 
@@ -205,7 +206,7 @@ function SearchFilter({
                         <div
                           key={lang}
                           className={`dropdown-menu-item ${isSelected ? "selected" : ""}`}
-                          onClick={() => toggleSelection(lang, selectedLanguages, setSelectedLanguages)}
+                          onClick={() => toggleSelection(lang, selectedLanguages, setSelectedLanguages, setShowLangDropdown)}
                         >
                           <div className="checkbox-box">{isSelected && <FiCheck />}</div>
                           <span>{lang}</span>
@@ -265,7 +266,7 @@ function SearchFilter({
                         <div
                           key={topic}
                           className={`dropdown-menu-item ${isSelected ? "selected" : ""}`}
-                          onClick={() => toggleSelection(topic, selectedTopics, setSelectedTopics)}
+                          onClick={() => toggleSelection(topic, selectedTopics, setSelectedTopics, setShowTopicDropdown)}
                         >
                           <div className="checkbox-box">{isSelected && <FiCheck />}</div>
                           <span>{topic}</span>

@@ -55,7 +55,7 @@ function Home({
               <FiChevronLeft />
               <span>Previous</span>
             </button>
-            
+
             <span className="pagination-info">
               Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
             </span>
