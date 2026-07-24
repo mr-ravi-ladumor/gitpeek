@@ -33,14 +33,15 @@ async function fetchAndStore() {
 
             if (!res.ok) {
               const errData = await res.json().catch(() => ({}));
-              throw { response: { status: res.status, data: errData }, message: res.statusText };
+              throw { response: { status: res.status, data: errData, headers: res.headers }, message: res.statusText };
             }
 
             const data = await res.json();
             const rawRepos = data.items || [];
             const filtered = filterRepos(rawRepos);
-
-            const insertPromises = filtered.map((repo) => ({
+            
+            // mongoDB operation objects
+            const repoOperation = filtered.map((repo) => ({
               updateOne: {
                 filter: { id: repo.id },
                 update: {
@@ -49,13 +50,13 @@ async function fetchAndStore() {
                     name: repo.name,
                     fullName: repo.full_name,
                     htmlUrl: repo.html_url,
+                    createdAt: repo.created_at,
                     description: repo.description?.slice(0, 300) || "",
                     language: repo.language || "Unknown",
                     starsCount: repo.stargazers_count,
                     forksCount: repo.forks_count,
                     watchersCount: repo.watchers_count,
                     openIssuesCount: repo.open_issues_count,
-                    createdAt: repo.created_at,
                     pushedAt: repo.pushed_at,
                     topics: repo.topics || [],
                   }
@@ -64,11 +65,12 @@ async function fetchAndStore() {
               }
             }));
 
-            if (insertPromises.length) {
-              const result = await Repo.bulkWrite(insertPromises, { ordered: false });
+            if (repoOperation.length) {
+              const result = await Repo.bulkWrite(repoOperation, { ordered: false });
               const inserted = result.upsertedCount || 0;
+              const modified = result.modifiedCount || 0;
               totalStored += inserted;
-              console.log(`Stored: ${inserted} (Total: ${totalStored})`);
+              console.log(`Stored: ${inserted} new, Updated: ${modified} (Total New: ${totalStored})`);
             }
 
             await delay(2000); // Delay to avoid burst
@@ -78,8 +80,11 @@ async function fetchAndStore() {
             console.error(`Error fetching ${url}: ${msg}`);
 
             if (err.response?.status === 403) {
-              console.log("Rate limit hit. Waiting 60 seconds...");
-              await delay(60000);
+              const resetHeader = err.response.headers?.get?.('x-ratelimit-reset') || err.response.headers?.['x-ratelimit-reset'];
+              const resetTime = resetHeader ? Number(resetHeader) : null;
+              const waitMs = resetTime ? (resetTime * 1000 - Date.now()) : 60000;
+              console.log(`Rate limit hit. Waiting ${Math.ceil(Math.max(waitMs, 1000) / 1000)}s...`);
+              await delay(Math.max(waitMs, 1000));
               page--; // Retry same page
             }
           }

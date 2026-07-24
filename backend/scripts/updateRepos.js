@@ -59,15 +59,19 @@ async function updateRepos() {
           console.log(`Updated ${updated} repos so far...`);
         }
         
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1400));
       } catch (error) {
         failed++;
         const message = error.response?.data?.message || error.message;
         console.error(`Error updating repo ${repo.fullName}:`, message);
         
         if (error.response?.status === 403) {
-          console.log('Rate limit exceeded. Waiting for 60 seconds...');
-          await new Promise(resolve => setTimeout(resolve, 60000));
+          const resetTime = error.response.headers['x-ratelimit-reset'];
+          const waitMs = resetTime ? (resetTime * 1000 - Date.now()) : 60000;
+          console.log(`Rate limit hit. Waiting ${Math.ceil(Math.max(waitMs, 1000) / 1000)}s...`);
+          await new Promise(resolve => setTimeout(resolve, Math.max(waitMs, 1000)));
+          failed--;
+          continue;
         }
       }
     }

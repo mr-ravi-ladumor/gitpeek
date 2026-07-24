@@ -1,6 +1,6 @@
 import { PER_PAGE } from '../constants.js';
 
-// Utility: delay for rate limiting
+//  delay for rate limiting
 export function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
